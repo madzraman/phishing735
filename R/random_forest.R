@@ -15,3 +15,4 @@ fit <- train(train_x,train_y,method='rf',trControl = trCtl)
 
 pred_y <- predict(fit,newdata = test_x)
 confusionMatrix(data = pred_y,reference = test_y)
+saveRDS(fit,'../derived_data/model.RDS')
