@@ -33,6 +33,7 @@ write.csv(train.y, "phishing/derived_data/train_y.csv", row.names = FALSE)
 write.csv(test.x, "phishing/derived_data/test_x.csv", row.names = FALSE)
 write.csv(test.y, "phishing/derived_data/test_y.csv", row.names = FALSE)
 
+
 # trx <- read.csv("phishing/derived_data/train_x.csv")
 # try <- read.csv("phishing/derived_data/train_y.csv")
 # tstx <- read.csv("phishing/derived_data/test_x.csv")
