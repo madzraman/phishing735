@@ -169,60 +169,40 @@ plot_rf_cv <- function(file.in,title,file.out=NULL) {
     p
 }
 
-#' Compute (plot) confusion matrix
-#'
-#' This function returns the output of caret's confusionMatrix and, if specified, plots the
-#' confusion matrix heatmap
-#'
-#' @param model a "train" object from caret. Inputs the fitted model.
-#' @param title a character specifying the plot title
-#' @param file.out NULL if not saving plot locally. A character specifing the location
-#' to save the output plot.
-#'
-#' @return A ggplot object.
-#'
-#' @examples
-#'
-#' plot_rf_cv("/path/to/csv","test plot")
-#'
-#' @importFrom tidyverse caret 
-#' 
-#' @export
-confusion_mat <- function(model,title,file.out=F) {
-    source("helpers.R")
-    test_x <- get_data('test_x')
-    test_y <- get_data('test_y')
-
-    pred_y <- predict(model,newdata=test_x)
-    m <- confusionMatrix(test_y,pred_y)
-    nums <- as.vector(m$table)
-    pred_class <- factor(c(0,1,0,1))
-    true_class <- factor(c(0,0,1,1))
-
-    df <- data.frame(nums,pred_class,true_class)
-
-    p <- ggplot(data =  df, mapping = aes(x = pred_class, y = true_class)) +
-    geom_tile(aes(fill = nums), colour = "white") +
-    geom_text(aes(label = sprintf("%1.0f", nums)), vjust = 1) +
-    scale_fill_gradient(low = "gray", high = "blue") +
-    theme_bw() + theme(legend.position = "none") +
-    ggtitle(title)
-
-    print(p)
-    if (!is.null(file.out)) {
-        ggsave(file.out,p)
-    }
-    m
-}
-
-
-# run_rf(mtry=c(2,8,16),verbose=T,trimmed_var=c('n_asterisk','n_dollar','n_hastag'),file='../derived_data/reduced_rf_model_selection.csv')
+run_rf(mtry=c(2,6,11),verbose=T,
+       trimmed_var=c('n_exclamation',
+                     'n_plus',
+                     'n_tilde',
+                     'n_space',
+                     'n_comma',
+                     'n_asterisk',
+                     'n_dollar',
+                     'n_hashtag'),
+       file='../derived_data/reduced_rf_model_selection.csv')
 # run_rf(verbose=T,file='../derived_data/rf_model_selection.csv')
 # plot_rf_cv("../derived_data/rf_model_selection.csv","Full model parameter tuning","../derived_data/rf_full_cv.jpg")
-# plot_rf_cv("../derived_data/reduced_rf_model_selection.csv","Reduced model parameter tuning","../derived_data/rf_reduced_cv.jpg")
+plot_rf_cv("../derived_data/reduced_rf_model_selection.csv","Reduced model parameter tuning","../derived_data/rf_reduced_cv.jpg")
 
-# full <- run_rf(cv=F,mtry=10,splitrule='gini',n_tree=50,min.node.size=5,verbose=T)
-reduce <- run_rf(cv=F,mtry=8,splitrule='gini',n_tree=500,min.node.size=1,verbose=T,trimmed_var=c('n_asterisk','n_dollar','n_hastag'))
-# confusion_mat(full,"Full model prediction confusion matrix","../derived_data/full_model_confusion_mat.jpg")
-confusion_mat(reduce,"Reduced model prediction confusion matrix","../derived_data/reduced_model_confusion_mat.jpg")
+full <- run_rf(cv=F,mtry=10,splitrule='gini',n_tree=50,min.node.size=5,verbose=T)
+perc_0 <- train_x %>% summarise(across(everything(), ~mean(.x == 0)))
+df <- data.frame(importance=importance(full$finalModel),percent_of_zero = t(perc_0)[,1])
+
+ggplot(df,aes(x=percent_of_zero,y=importance)) +
+    theme_bw() +
+    geom_point(color='blue',size=2) +
+    geom_line(size=1) +
+    labs(x='Percentage of 0', y='Gini importance') +
+    geom_vline(xintercept = 0.99,linetype=2)
+reduce <- run_rf(cv=F,mtry=6,splitrule='gini',n_tree=50,min.node.size=1,verbose=T,
+                 trimmed_var=c('n_exclamation',
+                               'n_plus',
+                               'n_tilde',
+                               'n_space',
+                               'n_comma',
+                               'n_asterisk',
+                               'n_dollar',
+                               'n_hashtag'))
+confusion_mat(predict(full,test_x),title="Full model prediction confusion matrix",file.out = "../derived_data/full_model_confusion_mat.jpg")
+confusion_mat(predict(reduce,test_x),title="Reduced model prediction confusion matrix",
+    file.out="../derived_data/reduced_model_confusion_mat.jpg")
 
