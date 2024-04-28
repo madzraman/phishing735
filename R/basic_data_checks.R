@@ -1,6 +1,14 @@
-# Basic checks of the original data set.
+#' Basic checks of the original source data set.
+#'
+#' This function checks for basic characteristics about the original data set as part of EDA.
+#'
+#' @examples
+#'
+#' phishing_data_checks()
+#'
+#' @export
 
-data_checks <- function(){
+phishing_data_checks <- function(){
     library(Hmisc)
     library(tidyverse)
     df <- read_csv("source_data/web-page-phishing.csv")
@@ -40,4 +48,3 @@ data_checks <- function(){
     cat("Not too bad. 70/30 is still considered a good spread.")
 }
 
-data_checks()
