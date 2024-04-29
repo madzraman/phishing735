@@ -8,14 +8,10 @@ For example:
 
 Steps to install and use the functions in this package:
 
-1. Download this package directory in its entirety. Call it phishing735.
-2. Run: install.packages("usethis"), install.packages("devtools")
-3. Run: library(usethis), library(devtools)
-4. Run: load_all("/path/to/phishing735")
-5. Start using the functions in this package.
-
-Alternatively:
-
-> if (!require("devtools")) install.packages("devtools")
-> devtools::install_github("madzraman/phishing735")
+1. Download this package directory in its entirety from https://github.com/madzraman/phishing735.git.
+2. Call it phishing735.
+3. Run: install.packages("usethis"), install.packages("devtools")
+4. Run: library(usethis), library(devtools)
+5. Run: load_all("/path/to/phishing735")
+6. Start using the functions in this package.
 
