@@ -8,12 +8,15 @@
 #'
 #' split_phishing_data()
 #'
+#' @import tidyverse caret
+#' 
 #' @export
 
-library(tidyverse)
-library(caret)
+
 
 split_phishing_data <- function(){
+    # library(tidyverse)
+    # library(caret)
     df <- read.csv("phishing/source_data/web-page-phishing.csv")
     set.seed(123)
     

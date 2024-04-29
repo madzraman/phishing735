@@ -6,11 +6,11 @@
 #'
 #' phishing_data_checks()
 #'
+#' @import tidyverse
 #' @export
 
 phishing_data_checks <- function(){
-    library(Hmisc)
-    library(tidyverse)
+    # library(tidyverse)
     df <- read_csv("source_data/web-page-phishing.csv")
     
     cat("*** Percent of 0s in each column: *** \n")

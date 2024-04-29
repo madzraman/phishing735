@@ -7,13 +7,15 @@
 #' @examples
 #'
 #' phishing_corrs_plot()
+#' 
+#' @import tidyverse GGally ggcorrplot
 #'
 #' @export
 
 phishing_corrs_plot <- function(){
-    library(tidyverse)
-    library(GGally)
-    library(ggcorrplot)
+    # library(tidyverse)
+    # library(GGally)
+    # library(ggcorrplot)
     df <- read_csv("source_data/web-page-phishing.csv")
     summary(df$url_length)
    # ggplot(data=df, mapping=aes(x=url_length)) +

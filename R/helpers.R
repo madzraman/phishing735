@@ -37,7 +37,7 @@ get_data <- function(name) {
 #'
 #' compute_cm(pred,title='test',file.out='/path/to/plot')
 #'
-#' @importFrom tidyverse caret 
+#' @import tidyverse caret 
 #' 
 #' @export
 confusion_mat <- function(pred,true=NULL,title,file.out=F) {

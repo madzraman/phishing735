@@ -17,7 +17,7 @@
 #'
 #' run_svm(111,reduced = T,RBF=F,train_x=train_x,train_y=train_y,test_x=test_x,test_y=test_y)
 #'
-#' @importFrom gtools caret ranger
+#' @import gtools caret ranger
 #' 
 #' @export
 

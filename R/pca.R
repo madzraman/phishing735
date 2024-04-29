@@ -8,11 +8,13 @@
 #'
 #' phishing_pca()
 #'
+#' @import table1 tidyverse
+#'
 #' @export
 
 phishing_pca <- function(){
-    library(table1)
-    library(tidyverse)
+    # library(table1)
+    # library(tidyverse)
     # Summary of data by outcome
     df <- read.csv("source_data/web-page-phishing.csv")
     table1(~ . | phishing, data = df)
