@@ -1,5 +1,3 @@
-library(caret)
-library(ranger)
 #' Using best performed tuning parameter traning svm model and output performance on test set
 #' 
 #' This function uses pre-tunned hyperparameters for Linear or RBF svm model to output Sensitivity,Specificity,f1_score,kappa of the model in the test set.
