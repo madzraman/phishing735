@@ -3,5 +3,5 @@ R package for BIOS 735 Group 1 final project at UNC Chapel Hill (Spring 2024). D
 All functions within the package are run at the outer package level, i.e. the phishing735 directory.
 
 For example:
-> > getwd():
-> "/Users/madhuriraman/Desktop/BIOS735/phishing735"
+> getwd():
+> > "/Users/madhuriraman/Desktop/BIOS735/phishing735"
