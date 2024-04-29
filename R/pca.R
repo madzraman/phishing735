@@ -8,7 +8,7 @@
 #'
 #' phishing_pca()
 #'
-#' @import table1 tidyverse ggplot2
+#' @import tidyverse ggplot2
 #'
 #' @export
 
@@ -16,7 +16,6 @@ phishing_pca <- function(){
 
     # Summary of data by outcome
     df <- source_data
-    table1(~ . | phishing, data = df)
     
     # PCA
     y <- df$phishing

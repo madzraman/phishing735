@@ -25,7 +25,6 @@ Imports:
     ggcorrplot,
     gtools,
     ranger,
-    table1,
     tidyverse,
     ggplot2,
     Hmisc
