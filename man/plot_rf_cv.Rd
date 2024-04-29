@@ -7,7 +7,7 @@
 plot_rf_cv(file.in, title, file.out = NULL)
 }
 \arguments{
-\item{file.in}{a character specifying the input csv of CV result}
+\item{file.in}{a dataframe of the CV result}
 
 \item{title}{a character specifying the plot title}
 
@@ -24,6 +24,6 @@ training set after k-fold CV.
 }
 \examples{
 
-plot_rf_cv("/path/to/csv","test plot")
+plot_rf_cv(rf_full_cv,"test plot")
 
 }

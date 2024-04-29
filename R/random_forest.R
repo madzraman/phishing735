@@ -23,7 +23,7 @@
 #'
 #' run_rf(file='/path/to/output')
 #'
-#' @import tidyverse caret ranger
+#' @import tidyverse caret ranger ggplot2
 #'
 #' @export
 run_rf <- function(k=5,
@@ -37,18 +37,15 @@ run_rf <- function(k=5,
                    trimmed_var=NULL,
                    file = NULL) { 
     set.seed(seed)
-    # library(caret)
-    # library(ranger)
-    # library(tidyverse)
     # Read data
-    source('R/helpers.R')
     train_x <- get_data('train_x')
     train_y <- get_data('train_y')
+    
     # Trim variables if required
     if (!is.null(trimmed_var)) {
         train_x <- train_x[,!(colnames(train_x) %in% trimmed_var)]
     }
-    # Set up paramter grids
+    # Set up parameter grids
     if (cv) {
         param_grid<-expand.grid(mtry = mtry,
                             splitrule = splitrule,
@@ -136,7 +133,7 @@ run_rf <- function(k=5,
 #' for different parameter combinations of random forest model fitted on phishing dataset's
 #' training set after k-fold CV.
 #'
-#' @param file.in a character specifying the input csv of CV result
+#' @param file.in a dataframe of the CV result
 #' @param title a character specifying the plot title
 #' @param file.out NULL if not saving plot locally. A character specifing the location
 #' to save the output plot.
@@ -145,13 +142,13 @@ run_rf <- function(k=5,
 #'
 #' @examples
 #'
-#' plot_rf_cv("/path/to/csv","test plot")
+#' plot_rf_cv(rf_full_cv,"test plot")
 #'
-#' @import tidyverse
+#' @import tidyverse ggplot2
 #' 
 #' @export
 plot_rf_cv <- function(file.in,title,file.out=NULL) {
-    df <- read.csv(file.in)
+    df <- file.in
     p <- ggplot(data=df,aes(x = as.factor(n_tree),y=Kappa, color=splitrule)) +
         theme_bw() +
         facet_wrap(~ min.node.size + mtry,labeller = label_both) +
@@ -170,49 +167,48 @@ plot_rf_cv <- function(file.in,title,file.out=NULL) {
 }
 
 
-all_rf_analysis <- function(){
-    run_rf(mtry=c(2,6,11),verbose=T,
-           trimmed_var=c('n_exclamation',
-                         'n_plus',
-                         'n_tilde',
-                         'n_space',
-                         'n_comma',
-                         'n_asterisk',
-                         'n_dollar',
-                         'n_hashtag'),
-           file='derived_data/reduced_rf_model_selection.csv')
-    
-    # run_rf(verbose=T,file='../derived_data/rf_model_selection.csv')
-    # plot_rf_cv("../derived_data/rf_model_selection.csv","Full model parameter tuning","derived_data/rf_full_cv.jpg")
-
-
-    plot_rf_cv("derived_data/reduced_rf_model_selection.csv","Reduced model parameter tuning","derived_data/rf_reduced_cv.jpg")
-    source('R/helpers.R')
-    train_x <- get_data('train_x')
-    train_y <- get_data('train_y')
-    test_x <- get_data('test_x')
-    test_y <- get_data('test_y')
-    
-    full <- run_rf(cv=F,mtry=10,splitrule='gini',n_tree=50,min.node.size=5,verbose=T)
-    perc_0 <- train_x %>% summarise(across(everything(), ~mean(.x == 0)))
-    df <- data.frame(importance=importance(full$finalModel),percent_of_zero = t(perc_0)[,1])
-    
-    ggplot(df,aes(x=percent_of_zero,y=importance)) +
-        theme_bw() +
-        geom_point(color='blue',size=2) +
-        geom_line(size=1) +
-        labs(x='Percentage of 0', y='Gini importance') +
-        geom_vline(xintercept = 0.99,linetype=2)
-    reduce <- run_rf(cv=F,mtry=6,splitrule='gini',n_tree=50,min.node.size=1,verbose=T,
-                     trimmed_var=c('n_exclamation',
-                                   'n_plus',
-                                   'n_tilde',
-                                   'n_space',
-                                   'n_comma',
-                                   'n_asterisk',
-                                   'n_dollar',
-                                   'n_hashtag'))
-    confusion_mat(predict(full,test_x),title="Full model prediction confusion matrix",file.out = "derived_data/full_model_confusion_mat.jpg")
-    confusion_mat(predict(reduce,test_x),title="Reduced model prediction confusion matrix",
-        file.out="derived_data/reduced_model_confusion_mat.jpg")
-}
+# all_rf_analysis <- function(){
+#     run_rf(mtry=c(2,6,11),verbose=T,
+#            trimmed_var=c('n_exclamation',
+#                          'n_plus',
+#                          'n_tilde',
+#                          'n_space',
+#                          'n_comma',
+#                          'n_asterisk',
+#                          'n_dollar',
+#                          'n_hashtag'),
+#            file='derived_data/reduced_rf_model_selection.csv')
+#     
+#     # run_rf(verbose=T,file='../derived_data/rf_model_selection.csv')
+#     # plot_rf_cv("../derived_data/rf_model_selection.csv","Full model parameter tuning","derived_data/rf_full_cv.jpg")
+# 
+# 
+#     plot_rf_cv("derived_data/reduced_rf_model_selection.csv","Reduced model parameter tuning","derived_data/rf_reduced_cv.jpg")
+#     train_x <- get_data('train_x')
+#     train_y <- get_data('train_y')
+#     test_x <- get_data('test_x')
+#     test_y <- get_data('test_y')
+#     
+#     full <- run_rf(cv=F,mtry=10,splitrule='gini',n_tree=50,min.node.size=5,verbose=T)
+#     perc_0 <- train_x %>% summarise(across(everything(), ~mean(.x == 0)))
+#     df <- data.frame(importance=importance(full$finalModel),percent_of_zero = t(perc_0)[,1])
+#     
+#     ggplot(df,aes(x=percent_of_zero,y=importance)) +
+#         theme_bw() +
+#         geom_point(color='blue',size=2) +
+#         geom_line(size=1) +
+#         labs(x='Percentage of 0', y='Gini importance') +
+#         geom_vline(xintercept = 0.99,linetype=2)
+#     reduce <- run_rf(cv=F,mtry=6,splitrule='gini',n_tree=50,min.node.size=1,verbose=T,
+#                      trimmed_var=c('n_exclamation',
+#                                    'n_plus',
+#                                    'n_tilde',
+#                                    'n_space',
+#                                    'n_comma',
+#                                    'n_asterisk',
+#                                    'n_dollar',
+#                                    'n_hashtag'))
+#     confusion_mat(predict(full,test_x),title="Full model prediction confusion matrix",file.out = "derived_data/full_model_confusion_mat.jpg")
+#     confusion_mat(predict(reduce,test_x),title="Reduced model prediction confusion matrix",
+#         file.out="derived_data/reduced_model_confusion_mat.jpg")
+# }

@@ -19,7 +19,7 @@ SGD_logistic <- function(y, X, batch_size = 50, learning_rate = 1e-3, epsilon = 
   }
   
   # Call the C++ function
-  result <- .Call('_phishing_LogisticRegression', PACKAGE = 'phishing', y = as.numeric(y), X = as.matrix(X), 
+  result <- .Call('_phishing_LogisticRegression', PACKAGE = 'phishing735', y = as.numeric(y), X = as.matrix(X), 
                   batch_size, learning_rate, epsilon, max_iter)
   
   return(result)

@@ -8,16 +8,14 @@
 #'
 #' split_phishing_data()
 #'
-#' @import tidyverse caret
+#' @import tidyverse caret ggplot2
 #' 
 #' @export
 
 
 
 split_phishing_data <- function(){
-    # library(tidyverse)
-    # library(caret)
-    df <- read.csv("phishing/source_data/web-page-phishing.csv")
+    df <- source_data
     set.seed(123)
     
     x <- df[,1:19]
@@ -44,9 +42,11 @@ split_phishing_data <- function(){
     colnames(train.x) == colnames(test.x)
     colnames(train.y) == colnames(test.y)
     
-    write.csv(train.x, "derived_data/train_x.csv", row.names = FALSE)
-    write.csv(train.y, "derived_data/train_y.csv", row.names = FALSE)
-    write.csv(test.x, "derived_data/test_x.csv", row.names = FALSE)
-    write.csv(test.y, "derived_data/test_y.csv", row.names = FALSE)
+    list(
+        train_x = train.x,
+        train_y = train.y,
+        test_x = test.x,
+        test_y = test.y
+    )
 
 }

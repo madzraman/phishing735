@@ -21,10 +21,15 @@
 #' 
 #' @export
 
-
 run_svm <- function(seed=seed,reduced,RBF,
-                  train_x=train_x,train_y=train_y,
-                  test_x=test_x,test_y=test_y){
+                  train_x=NULL,train_y=NULL,
+                  test_x=NULL,test_y=NULL){
+    if (is.null(train_x)) {
+        train_x <- get_data('train_x')
+        train_y <- get_data('train_y')
+        test_x <- get_data('test_x')
+        test_y <- get_data('test_y')
+    }
     set.seed(seed)
     trCtl <- trainControl(method="cv", number=5, savePredictions=F,verboseIter = T)
     if(reduced==T) {

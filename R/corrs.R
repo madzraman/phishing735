@@ -8,15 +8,12 @@
 #'
 #' phishing_corrs_plot()
 #' 
-#' @import tidyverse GGally ggcorrplot
+#' @import tidyverse GGally ggcorrplot ggplot2
 #'
 #' @export
 
 phishing_corrs_plot <- function(){
-    # library(tidyverse)
-    # library(GGally)
-    # library(ggcorrplot)
-    df <- read_csv("source_data/web-page-phishing.csv")
+    df <- source_data
     summary(df$url_length)
    # ggplot(data=df, mapping=aes(x=url_length)) +
    #      geom_histogram() + 
@@ -30,6 +27,6 @@ phishing_corrs_plot <- function(){
               panel.grid.minor = element_blank(),
               axis.text.x = element_text(angle = 45, vjust=1, hjust=0.1)) +
         scale_x_discrete(position = "top")
-    ggsave(c, )
+    ggsave('figures/corrplot.png')
     return(c)
 }

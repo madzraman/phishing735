@@ -6,12 +6,12 @@
 #'
 #' phishing_data_checks()
 #'
-#' @import tidyverse
+#' @import tidyverse ggplot2 Hmisc
 #' @export
 
 phishing_data_checks <- function(){
     # library(tidyverse)
-    df <- read_csv("source_data/web-page-phishing.csv")
+    df <- source_data
     
     cat("*** Percent of 0s in each column: *** \n")
     z <- rep(NA, ncol(df))
