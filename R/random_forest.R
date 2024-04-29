@@ -41,7 +41,7 @@ run_rf <- function(k=5,
                    file = NULL) { 
     set.seed(seed)
     # Read data
-    source('helpers.R')
+    source('R/helpers.R')
     train_x <- get_data('train_x')
     train_y <- get_data('train_y')
     # Trim variables if required
@@ -178,10 +178,10 @@ run_rf(mtry=c(2,6,11),verbose=T,
                      'n_asterisk',
                      'n_dollar',
                      'n_hashtag'),
-       file='../derived_data/reduced_rf_model_selection.csv')
+       file='derived_data/reduced_rf_model_selection.csv')
 # run_rf(verbose=T,file='../derived_data/rf_model_selection.csv')
-# plot_rf_cv("../derived_data/rf_model_selection.csv","Full model parameter tuning","../derived_data/rf_full_cv.jpg")
-plot_rf_cv("../derived_data/reduced_rf_model_selection.csv","Reduced model parameter tuning","../derived_data/rf_reduced_cv.jpg")
+# plot_rf_cv("../derived_data/rf_model_selection.csv","Full model parameter tuning","derived_data/rf_full_cv.jpg")
+plot_rf_cv("derived_data/reduced_rf_model_selection.csv","Reduced model parameter tuning","derived_data/rf_reduced_cv.jpg")
 
 full <- run_rf(cv=F,mtry=10,splitrule='gini',n_tree=50,min.node.size=5,verbose=T)
 perc_0 <- train_x %>% summarise(across(everything(), ~mean(.x == 0)))
@@ -202,7 +202,7 @@ reduce <- run_rf(cv=F,mtry=6,splitrule='gini',n_tree=50,min.node.size=1,verbose=
                                'n_asterisk',
                                'n_dollar',
                                'n_hashtag'))
-confusion_mat(predict(full,test_x),title="Full model prediction confusion matrix",file.out = "../derived_data/full_model_confusion_mat.jpg")
+confusion_mat(predict(full,test_x),title="Full model prediction confusion matrix",file.out = "derived_data/full_model_confusion_mat.jpg")
 confusion_mat(predict(reduce,test_x),title="Reduced model prediction confusion matrix",
-    file.out="../derived_data/reduced_model_confusion_mat.jpg")
+    file.out="derived_data/reduced_model_confusion_mat.jpg")
 

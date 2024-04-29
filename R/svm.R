@@ -22,7 +22,7 @@
 #' @export
 
 
-run_svm<-function(seed=seed,reduced,RBF,
+run_svm <- function(seed=seed,reduced,RBF,
                   train_x=train_x,train_y=train_y,
                   test_x=test_x,test_y=test_y){
     set.seed(seed)

@@ -12,7 +12,7 @@
 #'
 #' @export
 get_data <- function(name) {
-    out <- read.csv(paste0('..//derived_data/',name,'.csv'))
+    out <- read.csv(paste0('derived_data/',name,'.csv'))
     if (ncol(out) == 1) {
         out <- factor(out[,1])
     }
@@ -42,7 +42,7 @@ get_data <- function(name) {
 #' @export
 confusion_mat <- function(pred,true=NULL,title,file.out=F) {
     if (is.null(true)) {
-        source("helpers.R")
+        source("R/helpers.R")
         true <- get_data('test_y')
     }
     m <- confusionMatrix(true,pred,mode='everything')

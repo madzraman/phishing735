@@ -41,9 +41,9 @@ split_phishing_data <- function(){
     colnames(train.x) == colnames(test.x)
     colnames(train.y) == colnames(test.y)
     
-    write.csv(train.x, "phishing/derived_data/train_x.csv", row.names = FALSE)
-    write.csv(train.y, "phishing/derived_data/train_y.csv", row.names = FALSE)
-    write.csv(test.x, "phishing/derived_data/test_x.csv", row.names = FALSE)
-    write.csv(test.y, "phishing/derived_data/test_y.csv", row.names = FALSE)
+    write.csv(train.x, "derived_data/train_x.csv", row.names = FALSE)
+    write.csv(train.y, "derived_data/train_y.csv", row.names = FALSE)
+    write.csv(test.x, "derived_data/test_x.csv", row.names = FALSE)
+    write.csv(test.y, "derived_data/test_y.csv", row.names = FALSE)
 
 }
