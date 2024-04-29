@@ -23,8 +23,3 @@ A ggplot object.
 This function returns the output of caret's confusionMatrix and, if specified, plots the
 confusion matrix heatmap
 }
-\examples{
-
-compute_cm(pred,title='test',file.out='/path/to/plot')
-
-}

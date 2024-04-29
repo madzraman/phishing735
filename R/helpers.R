@@ -33,9 +33,6 @@ get_data <- function(name) {
 #'
 #' @return A ggplot object.
 #'
-#' @examples
-#'
-#' compute_cm(pred,title='test',file.out='/path/to/plot')
 #'
 #' @import tidyverse caret 
 #' 

@@ -1,6 +1,6 @@
 Package: phishing
 Title: What the Package Does (One Line, Title Case)
-Version: 0.0.1
+Version: 1.0.0
 Authors@R: 
     person("Madhuri", "Raman", , "madhurir@unc.edu", role = c("aut", "cre"),
            comment = c(ONYEN = "madhurir"))
@@ -30,6 +30,4 @@ Imports:
 LinkingTo:
     Rcpp,
     RcppArmadillo
-Suggests: 
-    testthat (>= 3.0.0)
 Config/testthat/edition: 3
