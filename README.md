@@ -14,3 +14,8 @@ Steps to install and use the functions in this package:
 4. Run: load_all("/path/to/phishing735")
 5. Start using the functions in this package.
 
+Alternatively:
+
+> if (!require("devtools")) install.packages("devtools")
+> devtools::install_github("madzraman/phishing735")
+
