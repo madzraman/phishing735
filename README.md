@@ -8,7 +8,7 @@ For example:
 
 Steps to install and use the functions in this package:
 
-1. Download this package directory in its entirety. Call is phishing735.
+1. Download this package directory in its entirety. Call it phishing735.
 2. Run: install.packages("usethis"), install.packages("devtools")
 3. Run: library(usethis), library(devtools)
 4. Run: load_all("/path/to/phishing735")
