@@ -13,7 +13,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // LogisticRegression
 Rcpp::List LogisticRegression(arma::vec y, arma::mat X, int batch_size, double learning_rate, double epsilon, int max_iter);
-RcppExport SEXP _phishing_LogisticRegression(SEXP ySEXP, SEXP XSEXP, SEXP batch_sizeSEXP, SEXP learning_rateSEXP, SEXP epsilonSEXP, SEXP max_iterSEXP) {
+RcppExport SEXP _phishing735_LogisticRegression(SEXP ySEXP, SEXP XSEXP, SEXP batch_sizeSEXP, SEXP learning_rateSEXP, SEXP epsilonSEXP, SEXP max_iterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -29,11 +29,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_phishing_LogisticRegression", (DL_FUNC) &_phishing_LogisticRegression, 6},
+    {"_phishing735_LogisticRegression", (DL_FUNC) &_phishing735_LogisticRegression, 6},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_phishing(DllInfo *dll) {
+RcppExport void R_init_phishing735(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }
