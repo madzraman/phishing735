@@ -2,6 +2,8 @@
 #'
 #' Performs logistic regression using mini-batch gradient descent.
 #'
+#' @useDynLib phishing
+#' @importFrom Rcpp sourceCpp
 #' @param y Numeric vector of binary response variables.
 #' @param X Numeric matrix of predictor variables.
 #' @param batch_size Size of each batch.
@@ -17,7 +19,7 @@ SGD_logistic <- function(y, X, batch_size = 50, learning_rate = 1e-3, epsilon = 
   }
   
   # Call the C++ function
-  result <- .Call("LogisticRegression", y = as.numeric(y), X = as.matrix(X), 
+  result <- .Call('_phishing_LogisticRegression', PACKAGE = 'phishing', y = as.numeric(y), X = as.matrix(X), 
                   batch_size, learning_rate, epsilon, max_iter)
   
   return(result)

@@ -11,12 +11,18 @@ Authors@R:
     person("Sophie ", "Shan", , "sophshan@unc.edu", role = c("aut", "cre"),
            comment = c(ONYEN = "madhurir"))
     person("Jiawen ", "Du", , "jiawen15@email.unc.edu", role = c("aut", "cre"),
-           comment = c(ONYEN = "madhurir"))
+           comment = c(ONYEN = "jiawen15"))
 Description: Webpage Phishing final project for BIOS 735 Group 1.
 License: `use_gpl3_license()`
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.1
+Imports:
+    Rcpp,
+    RcppArmadillo
+LinkingTo:
+    Rcpp,
+    RcppArmadillo
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
