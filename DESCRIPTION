@@ -1,5 +1,5 @@
 Package: phishing735
-Title: What the Package Does (One Line, Title Case)
+Title: Data Analysis for Phishing Data
 Version: 1.0.0
 Authors@R: 
     person("Madhuri", "Raman", , "madhurir@unc.edu", role = c("aut", "cre"),
